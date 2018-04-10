@@ -2,9 +2,11 @@
 #![plugin(rocket_codegen)]
 
 extern crate rocket;
+extern crate url;
 
 use rocket::config::{Config, Environment};
 
+mod circleci;
 mod view;
 
 fn main() {

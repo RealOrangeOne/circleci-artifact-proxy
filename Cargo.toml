@@ -6,3 +6,4 @@ authors = ["Jake Howard <git@theorangeone.net>"]
 [dependencies]
 rocket = "0.3.8"
 rocket_codegen = "0.3.8"
+url = "1.7.0"
