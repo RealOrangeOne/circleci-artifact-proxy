@@ -5,10 +5,7 @@ extern crate rocket;
 
 use rocket::config::{Config, Environment};
 
-#[get("/<org>/<repo>/<path>")]
-fn handle(org: String, repo: String, path: String) -> String {
-    return "woo".into();
-}
+mod view;
 
 fn main() {
     let config = Config::build(Environment::Development)
@@ -16,6 +13,6 @@ fn main() {
         .finalize()
         .unwrap();
     rocket::custom(config, true)
-        .mount("/", routes![handle])
+        .mount("/", routes![view::handle])
         .launch();
 }
