@@ -21,7 +21,7 @@ where
     return Ok(Url::parse(&raw_url).expect(&format!("Found invalid URL: {}", raw_url)));
 }
 
-pub fn build_asset_url(org: String, repo: String) -> Url {
+fn build_asset_url(org: String, repo: String) -> Url {
     return Url::parse(&format!(
         "https://circleci.com/api/v1.1/project/github/{}/{}/latest/artifacts",
         org, repo
