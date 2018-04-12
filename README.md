@@ -9,8 +9,9 @@ Download the latest asset available from a CircleCI build. The files are streame
 - `rust`
 - `cargo`
 
-
-    cargo run --release
+```bash
+cargo run --release
+```
 
 The default is to listen on port `5000`, unless `$PORT` is defined.
 
