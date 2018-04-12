@@ -1,6 +1,6 @@
-use circleci::build_asset_url;
+use circleci::get_artifacts;
 
 #[get("/<org>/<repo>/<path>")]
 pub fn handle(org: String, repo: String, path: String) -> String {
-    return build_asset_url(org, repo).as_str().into();
+    return format!("{:?}", get_artifacts(org, repo));
 }
