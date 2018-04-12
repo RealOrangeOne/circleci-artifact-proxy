@@ -6,14 +6,14 @@ extern crate serde;
 extern crate url;
 #[macro_use]
 extern crate serde_derive;
-extern crate serde_json;
 extern crate reqwest;
+extern crate serde_json;
 
 use rocket::config::{Config, Environment};
 
 mod circleci;
-mod view;
 mod utils;
+mod view;
 
 fn main() {
     let config = Config::build(Environment::Development)
