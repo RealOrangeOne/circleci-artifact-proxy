@@ -1,4 +1,8 @@
-use circleci::{get_artifacts, Artifact};
+use circleci::{get_artifacts, Artifact, fetch_artifact};
+use rocket::response::Stream;
+use reqwest::Response;
+
+const CHUNK_SIZE: u64 = 4096;
 
 fn filter_artifacts(artifacts: Vec<Artifact>, path: String) -> Option<Artifact> {
     if artifacts.is_empty() {
@@ -9,17 +13,14 @@ fn filter_artifacts(artifacts: Vec<Artifact>, path: String) -> Option<Artifact> 
         return None;
     }
     return Some(filtered_artifacts[0].clone());
-
-
-
 }
 
 #[get("/<org>/<repo>/<path>")]
-pub fn handle(org: String, repo: String, path: String) -> Option<String> {
+pub fn handle(org: String, repo: String, path: String) -> Option<Stream<Response>> {
     let artifacts = get_artifacts(org, repo);
     let artifact = filter_artifacts(artifacts, path);
     return match artifact {
         None => None,
-        Some(a) => Some(format!("{:?}", a))
+        Some(a) => Some(Stream::chunked(fetch_artifact(a), CHUNK_SIZE))
     };
 }

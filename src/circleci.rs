@@ -2,6 +2,7 @@ use serde::de::{Deserialize, Deserializer};
 use std::path::PathBuf;
 use url::Url;
 use utils::get_client;
+use reqwest::Response;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Artifact {
@@ -31,4 +32,8 @@ pub fn get_artifacts(org: String, repo: String) -> Vec<Artifact> {
     let client = get_client();
     let url = build_asset_url(org, repo);
     return client.get(url).send().expect("API Request failed").json().expect("JSON parse error");
+}
+
+pub fn fetch_artifact(artifact: Artifact) -> Response {
+    return get_client().get(artifact.url.as_str()).send().expect("Failed to get artifact");
 }
