@@ -3,13 +3,13 @@ use std::path::PathBuf;
 use url::Url;
 use utils::get_client;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct Artifact {
-    path: PathBuf,
+    pub path: PathBuf,
     pretty_path: PathBuf,
     node_index: u8,
     #[serde(deserialize_with = "deserialize_url")]
-    url: Url,
+    pub url: Url,
 }
 
 fn deserialize_url<'a, D>(deserializer: D) -> Result<Url, D::Error>
