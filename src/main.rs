@@ -2,7 +2,11 @@
 #![plugin(rocket_codegen)]
 
 extern crate rocket;
+extern crate serde;
 extern crate url;
+#[macro_use]
+extern crate serde_derive;
+extern crate serde_json;
 
 use rocket::config::{Config, Environment};
 
