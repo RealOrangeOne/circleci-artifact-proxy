@@ -10,14 +10,22 @@ extern crate reqwest;
 extern crate serde_json;
 
 use rocket::config::{Config, Environment};
+use std::env;
 
 mod circleci;
 mod utils;
 mod view;
 
+fn get_port() -> u16 {
+    return env::var("PORT")
+        .unwrap_or("5000".into())
+        .parse::<u16>()
+        .expect("Invalid port number");
+}
+
 fn main() {
     let config = Config::build(Environment::Development)
-        .port(5000)
+        .port(get_port())
         .finalize()
         .unwrap();
     rocket::custom(config, true)
