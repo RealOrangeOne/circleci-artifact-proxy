@@ -1,4 +1,4 @@
-# circleci-asset-downloader
+# CircleCI Asset Downloader
 
 [![CircleCI](https://circleci.com/gh/RealOrangeOne/circleci-asset-downloader.svg?style=svg)](https://circleci.com/gh/RealOrangeOne/circleci-asset-downloader)
 
