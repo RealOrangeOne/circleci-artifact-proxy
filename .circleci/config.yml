@@ -11,3 +11,6 @@ jobs:
             - run: cargo search  # Update registry outside build process
             - run: cargo build
             - run: cargo build --release
+            - store_artifacts:
+                path: target/release/circleci-asset-downloader
+                destination: circleci-asset-downloader
