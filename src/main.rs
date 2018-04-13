@@ -26,7 +26,6 @@ fn get_port() -> u16 {
 fn main() {
     let config = Config::build(Environment::Production)
         .port(get_port())
-        .finalize()
         .unwrap();
     rocket::custom(config, true)
         .mount("/", routes![view::handle])
