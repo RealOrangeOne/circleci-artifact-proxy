@@ -1,1 +1,1 @@
-web: ./target/release/circleci-asset-downloader
+web: ./target/release/circleci-asset-server

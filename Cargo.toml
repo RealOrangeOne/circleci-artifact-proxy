@@ -1,5 +1,5 @@
 [package]
-name = "circleci-asset-downloader"
+name = "circleci-asset-server"
 version = "0.1.0"
 authors = ["Jake Howard <git@theorangeone.net>"]
 

@@ -69,7 +69,7 @@ version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
-name = "circleci-asset-downloader"
+name = "circleci-asset-server"
 version = "0.1.0"
 dependencies = [
  "reqwest 0.8.5 (registry+https://github.com/rust-lang/crates.io-index)",

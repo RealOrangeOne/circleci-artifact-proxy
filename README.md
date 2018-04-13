@@ -1,6 +1,6 @@
-# CircleCI Asset Downloader
+# CircleCI Asset Server
 
-[![CircleCI](https://circleci.com/gh/RealOrangeOne/circleci-asset-downloader.svg?style=svg)](https://circleci.com/gh/RealOrangeOne/circleci-asset-downloader)
+[![CircleCI](https://circleci.com/gh/RealOrangeOne/circleci-asset-server.svg?style=svg)](https://circleci.com/gh/RealOrangeOne/circleci-asset-server)
 
 Download assets available from a CircleCI build.
 
