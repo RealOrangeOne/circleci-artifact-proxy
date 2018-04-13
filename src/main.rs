@@ -25,8 +25,9 @@ const ROCKET_ENVIRONMENT: Environment = Environment::Production;
 const ROCKET_ENVIRONMENT: Environment = Environment::Development;
 
 #[get("/<org>/<repo>/<path>")]
-pub fn handle(org: String, repo: String, path: String) -> Option<Stream<Response>> {
-    let artifacts = circleci::get_artifacts(org, repo)?;
+pub fn get_latest_asset(org: String, repo: String, path: String) -> Option<Stream<Response>> {
+    let url = circleci::build_asset_url(org, repo);
+    let artifacts = circleci::get_artifacts_from(url)?;
     let artifact = utils::filter_artifacts(artifacts, path);
     return match artifact {
         None => None,
@@ -39,6 +40,6 @@ fn main() {
         .port(utils::get_port())
         .unwrap();
     rocket::custom(config, true)
-        .mount("/", routes![handle])
+        .mount("/", routes![get_latest_asset])
         .launch();
 }
