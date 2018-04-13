@@ -12,7 +12,8 @@ One of CircleCI's greatest features is artifacts, files saved from builds which 
 - `cargo`
 
 ```bash
-cargo run --release
+cargo run  # For local development
+cargo run --release  # For deployment
 ```
 
 The default is to listen on port `5000`, unless `$PORT` is defined.
