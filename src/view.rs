@@ -11,7 +11,10 @@ fn filter_artifacts(artifacts: Vec<Artifact>, path: String) -> Option<Artifact> 
     let filtered_artifacts: Vec<&Artifact> = artifacts
         .iter()
         .filter(|artifact| artifact.path.to_string_lossy() == path)
-        .collect()?;
+        .collect();
+    if filtered_artifacts.is_empty() {
+        return None;
+    }
     return Some(filtered_artifacts[0].clone());
 }
 
