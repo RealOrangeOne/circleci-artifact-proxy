@@ -16,6 +16,12 @@ mod circleci;
 mod utils;
 mod view;
 
+#[cfg(not(debug_assertions))]
+const ROCKET_ENVIRONMENT: Environment = Environment::Production;
+
+#[cfg(debug_assertions)]
+const ROCKET_ENVIRONMENT: Environment = Environment::Development;
+
 fn get_port() -> u16 {
     return env::var("PORT")
         .unwrap_or("5000".into())
@@ -24,9 +30,7 @@ fn get_port() -> u16 {
 }
 
 fn main() {
-    let config = Config::build(Environment::Production)
-        .port(get_port())
-        .unwrap();
+    let config = Config::build(ROCKET_ENVIRONMENT).port(get_port()).unwrap();
     rocket::custom(config, true)
         .mount("/", routes![view::handle])
         .launch();
