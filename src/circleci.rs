@@ -1,4 +1,5 @@
 use reqwest::Response;
+use reqwest::StatusCode;
 use serde::de::{Deserialize, Deserializer};
 use std::path::PathBuf;
 use url::Url;
@@ -28,15 +29,14 @@ fn build_asset_url(org: String, repo: String) -> Url {
     )).expect("Failed to build URL");
 }
 
-pub fn get_artifacts(org: String, repo: String) -> Vec<Artifact> {
+pub fn get_artifacts(org: String, repo: String) -> Option<Vec<Artifact>> {
     let client = get_client();
     let url = build_asset_url(org, repo);
-    return client
-        .get(url)
-        .send()
-        .expect("API Request failed")
-        .json()
-        .expect("JSON parse error");
+    let mut response = client.get(url).send().expect("API Request failed");
+    if response.status() == StatusCode::NotFound {
+        return None;
+    }
+    return Some(response.json().expect("JSON parse error"));
 }
 
 pub fn fetch_artifact(artifact: Artifact) -> Response {

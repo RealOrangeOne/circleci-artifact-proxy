@@ -21,7 +21,10 @@ fn filter_artifacts(artifacts: Vec<Artifact>, path: String) -> Option<Artifact> 
 #[get("/<org>/<repo>/<path>")]
 pub fn handle(org: String, repo: String, path: String) -> Option<Stream<Response>> {
     let artifacts = get_artifacts(org, repo);
-    let artifact = filter_artifacts(artifacts, path);
+    if artifacts.is_none() {
+        return None;
+    }
+    let artifact = filter_artifacts(artifacts.unwrap(), path);
     return match artifact {
         None => None,
         Some(a) => Some(Stream::chunked(fetch_artifact(a), CHUNK_SIZE)),
