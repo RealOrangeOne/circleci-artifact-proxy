@@ -11,20 +11,14 @@ fn filter_artifacts(artifacts: Vec<Artifact>, path: String) -> Option<Artifact> 
     let filtered_artifacts: Vec<&Artifact> = artifacts
         .iter()
         .filter(|artifact| artifact.path.to_string_lossy() == path)
-        .collect();
-    if filtered_artifacts.is_empty() {
-        return None;
-    }
+        .collect()?;
     return Some(filtered_artifacts[0].clone());
 }
 
 #[get("/<org>/<repo>/<path>")]
 pub fn handle(org: String, repo: String, path: String) -> Option<Stream<Response>> {
-    let artifacts = get_artifacts(org, repo);
-    if artifacts.is_none() {
-        return None;
-    }
-    let artifact = filter_artifacts(artifacts.unwrap(), path);
+    let artifacts = get_artifacts(org, repo)?;
+    let artifact = filter_artifacts(artifacts, path);
     return match artifact {
         None => None,
         Some(a) => Some(Stream::chunked(fetch_artifact(a), CHUNK_SIZE)),
