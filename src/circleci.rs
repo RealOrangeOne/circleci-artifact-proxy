@@ -22,10 +22,10 @@ where
     return Ok(Url::parse(&raw_url).expect(&format!("Found invalid URL: {}", raw_url)));
 }
 
-pub fn build_asset_url(org: String, repo: String) -> Url {
+pub fn get_build_asset_url(org: String, repo: String, build: String) -> Url {
     return Url::parse(&format!(
-        "https://circleci.com/api/v1.1/project/github/{}/{}/latest/artifacts",
-        org, repo
+        "https://circleci.com/api/v1.1/project/github/{}/{}/{}/artifacts",
+        org, repo, build
     )).expect("Failed to build URL");
 }
 
@@ -36,7 +36,6 @@ pub fn get_artifacts_from(url: Url) -> Option<Vec<Artifact>> {
         return None;
     }
     return Some(response.json().expect("JSON parse error"));
-
 }
 
 pub fn fetch_artifact(artifact: Artifact) -> Response {

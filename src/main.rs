@@ -24,9 +24,17 @@ const ROCKET_ENVIRONMENT: Environment = Environment::Production;
 #[cfg(debug_assertions)]
 const ROCKET_ENVIRONMENT: Environment = Environment::Development;
 
-#[get("/<org>/<repo>/<path>")]
-pub fn get_latest_asset(org: String, repo: String, path: String) -> Option<Stream<Response>> {
-    let url = circleci::build_asset_url(org, repo);
+#[get("/<org>/<repo>/<build>/<path>")]
+pub fn get_asset_for_build(
+    org: String,
+    repo: String,
+    build: String,
+    path: String,
+) -> Option<Stream<Response>> {
+    if !utils::is_valid_build_num(&build) {
+        return None;
+    }
+    let url = circleci::get_build_asset_url(org, repo, build);
     let artifacts = circleci::get_artifacts_from(url)?;
     let artifact = utils::filter_artifacts(artifacts, path);
     return match artifact {
@@ -40,6 +48,6 @@ fn main() {
         .port(utils::get_port())
         .unwrap();
     rocket::custom(config, true)
-        .mount("/", routes![get_latest_asset])
+        .mount("/", routes![get_asset_for_build])
         .launch();
 }

@@ -35,3 +35,10 @@ pub fn filter_artifacts(artifacts: Vec<Artifact>, path: String) -> Option<Artifa
     }
     return Some(filtered_artifacts[0].clone());
 }
+
+pub fn is_valid_build_num(build: &String) -> bool {
+    if build == "latest" {
+        return true;
+    }
+    return build.parse::<u32>().is_ok();
+}
