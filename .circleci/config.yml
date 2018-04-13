@@ -6,7 +6,6 @@ jobs:
             - image: rust:latest
         steps:
             - checkout
-            - run: rustup default nightly
             - run: rustup component add rustfmt-preview
             - run: cargo fmt -- --write-mode=diff
             - run: cargo search  # Update registry outside build process
