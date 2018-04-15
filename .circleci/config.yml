@@ -20,4 +20,4 @@ jobs:
             - save_cache:
                 key: cargo-{{ checksum "Cargo.lock" }}-{{ checksum "rust-toolchain" }}
                 paths:
-                    - ~/.cargo/
+                    - /usr/local/cargo
