@@ -6,6 +6,9 @@ jobs:
             - image: rust:latest
         steps:
             - checkout
+            - restore_cache:
+                keys:
+                    - cargo-{{ checksum "Cargo.lock" }}-{{ checksum "rust-toolchain" }}
             - run: rustup component add rustfmt-preview
             - run: cargo fmt -- --write-mode=diff
             - run: cargo search  # Update registry outside build process
@@ -14,3 +17,7 @@ jobs:
             - store_artifacts:
                 path: target/release/circleci-artifact-proxy
                 destination: circleci-artifact-proxy
+            - save_cache:
+                key: cargo-{{ checksum "Cargo.lock" }}-{{ checksum "rust-toolchain" }}
+                paths:
+                    - ~/.cargo/
