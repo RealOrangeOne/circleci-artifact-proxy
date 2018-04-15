@@ -1,1 +1,1 @@
-web: ./target/release/circleci-asset-server
+web: ./target/release/circleci-artifact-proxy

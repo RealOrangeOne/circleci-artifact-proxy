@@ -12,5 +12,5 @@ jobs:
             - run: cargo build
             - run: cargo build --release
             - store_artifacts:
-                path: target/release/circleci-asset-server
-                destination: circleci-asset-server
+                path: target/release/circleci-artifact-proxy
+                destination: circleci-artifact-proxy

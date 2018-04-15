@@ -1,5 +1,5 @@
 [package]
-name = "circleci-asset-server"
+name = "circleci-artifact-proxy"
 version = "0.1.0"
 authors = ["Jake Howard <git@theorangeone.net>"]
 
