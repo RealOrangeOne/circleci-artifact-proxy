@@ -16,8 +16,6 @@ use rocket::response::Stream;
 mod circleci;
 mod utils;
 
-const CHUNK_SIZE: u64 = 4096;
-
 #[cfg(not(debug_assertions))]
 const ROCKET_ENVIRONMENT: Environment = Environment::Production;
 
@@ -39,7 +37,7 @@ pub fn get_asset_for_build(
     let artifact = utils::filter_artifacts(artifacts, path);
     return match artifact {
         None => None,
-        Some(a) => Some(Stream::chunked(circleci::fetch_artifact(a), CHUNK_SIZE)),
+        Some(a) => Some(Stream::chunked(circleci::fetch_artifact(a), 4096)),
     };
 }
 
