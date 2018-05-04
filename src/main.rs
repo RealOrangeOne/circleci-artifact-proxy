@@ -35,7 +35,7 @@ pub fn get_asset_for_build(
     let url = circleci::get_build_asset_url(org, repo, build);
     let artifacts = circleci::get_artifacts_from(url)?;
     let artifact = utils::filter_artifacts(artifacts, path);
-    return artifact.map(|a| Stream::chunked(circleci::fetch_artifact(a), 4096))
+    return artifact.map(|a| Stream::chunked(circleci::fetch_artifact(a), 4096));
 }
 
 fn main() {
