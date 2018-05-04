@@ -11,10 +11,6 @@ jobs:
             - run: cargo search  # Update registry outside build process
             - run: cargo build
             - run: cargo build --release
-            - setup_remote_docker
-            - run:
-                name: Build docker container
-                command: docker build .
             - store_artifacts:
                 path: target/release/circleci-artifact-proxy
                 destination: circleci-artifact-proxy
