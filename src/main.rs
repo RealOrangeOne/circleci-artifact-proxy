@@ -1,6 +1,6 @@
-#![feature(plugin, decl_macro)]
-#![plugin(rocket_codegen)]
+#![feature(proc_macro_hygiene, decl_macro)]
 
+#[macro_use]
 extern crate rocket;
 extern crate serde;
 extern crate url;
@@ -42,7 +42,7 @@ fn main() {
     let config = Config::build(ROCKET_ENVIRONMENT)
         .port(utils::get_port())
         .unwrap();
-    rocket::custom(config, true)
+    rocket::custom(config)
         .mount("/", routes![get_asset_for_build])
         .launch();
 }

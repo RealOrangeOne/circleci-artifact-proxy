@@ -26,13 +26,14 @@ pub fn get_build_asset_url(org: String, repo: String, build: String) -> Url {
     return Url::parse(&format!(
         "https://circleci.com/api/v1.1/project/github/{}/{}/{}/artifacts",
         org, repo, build
-    )).expect("Failed to build URL");
+    ))
+    .expect("Failed to build URL");
 }
 
 pub fn get_artifacts_from(url: Url) -> Option<Vec<Artifact>> {
     let client = get_client();
-    let mut response = client.get(url).send().expect("API Request failed");
-    if response.status() == StatusCode::NotFound {
+    let mut response = client.get(url.as_str()).send().expect("API Request failed");
+    if response.status() == StatusCode::NOT_FOUND {
         return None;
     }
     return Some(response.json().expect("JSON parse error"));

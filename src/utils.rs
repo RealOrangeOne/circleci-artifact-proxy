@@ -1,6 +1,5 @@
 use circleci::Artifact;
 use reqwest::header;
-use reqwest::mime;
 use reqwest::{Client, ClientBuilder};
 use std::env;
 
@@ -12,8 +11,11 @@ pub fn get_port() -> u16 {
 }
 
 pub fn get_client() -> Client {
-    let mut headers = header::Headers::new();
-    headers.set(header::Accept(vec![header::qitem(mime::APPLICATION_JSON)]));
+    let mut headers = header::HeaderMap::new();
+    headers.insert(
+        header::ACCEPT,
+        header::HeaderValue::from_static("application/json"),
+    );
 
     return ClientBuilder::new()
         .gzip(true)
