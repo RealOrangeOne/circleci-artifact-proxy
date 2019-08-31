@@ -7,7 +7,7 @@ jobs:
         steps:
             - checkout
             - run: rustup component add rustfmt-preview
-            - run: cargo fmt -- --write-mode=diff
+            - run: cargo fmt --all -- --check
             - run: cargo search  # Update registry outside build process
             - run: cargo build
             - run: cargo build --release
